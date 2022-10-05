@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Store
 {
-    internal interface IJewerlyRepository
+    public interface IJewerlyRepository
     {
+        Jewelry[] GetAllByTitle(string titlePart);
+        
     }
 }
