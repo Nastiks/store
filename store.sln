@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{76FFDD32-AB09-49F3-998E-09485FBC4ECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "domain\Store\Store.csproj", "{BD2667A7-AEEE-4B50-BF6C-E64294AA88C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +14,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD2667A7-AEEE-4B50-BF6C-E64294AA88C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD2667A7-AEEE-4B50-BF6C-E64294AA88C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD2667A7-AEEE-4B50-BF6C-E64294AA88C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD2667A7-AEEE-4B50-BF6C-E64294AA88C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BD2667A7-AEEE-4B50-BF6C-E64294AA88C3} = {76FFDD32-AB09-49F3-998E-09485FBC4ECA}
 	EndGlobalSection
 EndGlobal
