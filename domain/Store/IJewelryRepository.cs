@@ -8,7 +8,9 @@ namespace Store
 {
     public interface IJewelryRepository
     {
-        Jewelry[] GetAllByTitle(string titlePart);
+        Jewelry[] GetAllByVendorCode(string vendorCode);
+
+        Jewelry[] GetAllByTitleOrMaterial(string titlePartOrMaterial);
         
     }
 }

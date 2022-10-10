@@ -2,20 +2,21 @@
 
 namespace Store.Web.Controllers
 {
+    
     public class SearchController : Controller
     {
-        private readonly IJewelryRepository jewelryRepository;
+        private readonly JewelryService jewelryService;
 
-        public SearchController(IJewelryRepository jewelryRepository)
+        public SearchController(JewelryService jewelryService)
         {
-            this.jewelryRepository = jewelryRepository;
+            this.jewelryService = jewelryService;
         }
 
 
         [HttpGet("/search")]
         public IActionResult Index(string query)
         {
-            var jewelries = jewelryRepository.GetAllByTitle(query);
+            var jewelries = jewelryService.GetAllByQuery(query);
 
             return View(jewelries);
         }
