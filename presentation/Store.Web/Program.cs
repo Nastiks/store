@@ -12,6 +12,7 @@ namespace Store.Web
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<IJewelryRepository, JewelryRepository>();
+            builder.Services.AddSingleton<JewelryService>();
 
             var app = builder.Build();
 
