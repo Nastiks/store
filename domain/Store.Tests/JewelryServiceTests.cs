@@ -14,10 +14,10 @@ namespace Store.Tests
         {
             var jewelryRepositoryStub = new Mock<IJewelryRepository>();
             jewelryRepositoryStub.Setup(x => x.GetAllByVendorCode(It.IsAny<string>()))
-                .Returns(new[] { new Jewelry(1, "", "", "") });
+                .Returns(new[] { new Jewelry(1, "", "", "", "", 0m)});
 
             jewelryRepositoryStub.Setup(x => x.GetAllByTitleOrMaterial(It.IsAny<string>()))
-                .Returns(new[] { new Jewelry(2, "", "", "") });
+                .Returns(new[] { new Jewelry(2, "", "", "", "", 0m)});
 
             var jewelryService = new JewelryService(jewelryRepositoryStub.Object);
             var validVendorCode = "Vendor code 0000000003";
@@ -28,15 +28,17 @@ namespace Store.Tests
 
         }
 
+
+
         [Fact]
         public void GetAllByQuery_WithMaterial_CallsGetAllByTitleOrMaterial()
         {
             var jewelryRepositoryStub = new Mock<IJewelryRepository>();
             jewelryRepositoryStub.Setup(x => x.GetAllByVendorCode(It.IsAny<string>()))
-                .Returns(new[] { new Jewelry(1, "", "", "") });
+                .Returns(new[] { new Jewelry(1, "", "", "", "", 0m) });
 
             jewelryRepositoryStub.Setup(x => x.GetAllByTitleOrMaterial(It.IsAny<string>()))
-                .Returns(new[] { new Jewelry(2, "", "", "") });
+                .Returns(new[] { new Jewelry(2, "", "", "", "", 0m) });
 
             var jewelryService = new JewelryService(jewelryRepositoryStub.Object);
             var invalidVendorCode = "0000000003";

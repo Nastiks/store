@@ -19,21 +19,25 @@ namespace Store.Web
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseRouting();
+
             app.UseAuthorization();
 
-            app.MapGet("/hi", () => "Hello!");
-
-            app.MapDefaultControllerRoute();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
+            });
+            
             app.MapRazorPages();
 
             app.Run();
         }
-    }
+    }    
 }

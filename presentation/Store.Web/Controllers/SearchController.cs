@@ -12,13 +12,11 @@ namespace Store.Web.Controllers
             this.jewelryService = jewelryService;
         }
 
-
-        [HttpGet("/search")]
         public IActionResult Index(string query)
         {
             var jewelries = jewelryService.GetAllByQuery(query);
 
-            return View(jewelries);
+            return View("Index", jewelries);
         }
     }
 }
