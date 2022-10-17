@@ -6,35 +6,38 @@ namespace Store.Web.Controllers
     public class CartController : Controller
     {
         private readonly IJewelryRepository jewelryRepository;
+        private readonly IOrderRepository orderRepository;
 
-        public CartController(IJewelryRepository jewelryRepository)
+        public CartController(IJewelryRepository jewelryRepository, IOrderRepository orderRepository)
         {
             this.jewelryRepository = jewelryRepository;
+            this.orderRepository = orderRepository;
         }
 
         public IActionResult Add(int id)
         {
-            var jewelry = jewelryRepository.GetById(id);
-            Cart cart;
+            Order order;
+            Cart cart = new(id);
+
             if (!HttpContext.Session.TryGetCart(out cart))
             {
-                cart = new Cart();
-            }
-
-            if (cart.Items.ContainsKey(id))
-            {
-                cart.Items[id]++;                
+                order = orderRepository.GetById(cart.OrderId);
             }
             else
             {
-                cart.Items[id] = 1;
+                order = orderRepository.Create();
+                cart = new Cart(order.Id);
             }
 
-            cart.Amount += jewelry.Price;
+            var jewelry = jewelryRepository.GetById(id);
+            order.AddItem(jewelry, 1);
+            orderRepository.Update(order);
 
+            cart.TotalCount = order.TotalCount;
+            cart.TotalPrice = order.TotalPrice;
             HttpContext.Session.Set(cart);
 
-            return RedirectToAction("Index", "Jewelry", new {id});
+            return RedirectToAction("Index", "Jewelry", new { id });
         }
     }
 }

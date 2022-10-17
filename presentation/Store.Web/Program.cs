@@ -20,6 +20,7 @@ namespace Store.Web
             });
 
             builder.Services.AddSingleton<IJewelryRepository, JewelryRepository>();
+            builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
             builder.Services.AddSingleton<JewelryService>();
 
             var app = builder.Build();
