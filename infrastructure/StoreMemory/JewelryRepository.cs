@@ -12,6 +12,15 @@
                 "A necklace made of natural pearls that will adorn any woman", 3000m),
         };
 
+        public Jewelry[] GetAllByIds(IEnumerable<int> jewelryIds)
+        {
+            var foundJewelries = from jewelry in jewelries
+                                 join jewelryId in jewelryIds on jewelry.Id equals jewelryId
+                                 select jewelry;
+
+            return foundJewelries.ToArray();
+        }
+
         public Jewelry[] GetAllByTitle(string titlePart)
         {
             return jewelries.Where(jewerly => jewerly.Title.Contains(titlePart))

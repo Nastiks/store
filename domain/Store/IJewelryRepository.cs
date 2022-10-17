@@ -8,5 +8,6 @@ namespace Store
         Jewelry[] GetAllByTitleOrMaterial(string titlePartOrMaterial);
 
         Jewelry GetById(int id);
+        Jewelry[] GetAllByIds(IEnumerable<int> jewelryIds);
     }
 }
