@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store.Web.Models;
-using System.Linq;
 
 namespace Store.Web.Controllers
 {
@@ -51,7 +50,7 @@ namespace Store.Web.Controllers
             };
         }
 
-        public IActionResult AddItem(int jewelryId, int count)
+        public IActionResult AddItem(int jewelryId, int count = 1)
         {
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
@@ -61,7 +60,7 @@ namespace Store.Web.Controllers
 
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Jewelry", new { jewelryId });
+            return RedirectToAction("Index", "Jewelry", new { id = jewelryId });
 
         }
 
