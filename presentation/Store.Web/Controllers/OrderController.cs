@@ -73,7 +73,7 @@ namespace Store.Web.Controllers
 
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Jewelry", new { jewelryId });
+            return RedirectToAction("Index", "Order");
         }        
 
         private (Order order, Cart cart) GetOrCreateOrderAndCart()
@@ -101,15 +101,15 @@ namespace Store.Web.Controllers
             HttpContext.Session.Set(cart);
         }       
 
-        public IActionResult RemoveItem(int id)
+        public IActionResult RemoveItem(int jewelryId)
         {
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
-            order.RemoveItem(id);
+            order.RemoveItem(jewelryId);
 
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Jewelry", new { id });
+            return RedirectToAction("Index", "Order");
         }
     }
 }
