@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store.Web.Models;
-using System.Linq;
 
 namespace Store.Web.Controllers
 {
@@ -51,12 +50,36 @@ namespace Store.Web.Controllers
             };
         }
 
-        public IActionResult AddItem(int id)
+        public IActionResult AddItem(int jewelryId, int count = 1)
+        {
+            (Order order, Cart cart) = GetOrCreateOrderAndCart();
+
+            var jewelry = jewelryRepository.GetById(jewelryId);
+
+            order.AddOrUpdateItem(jewelry, count);
+
+            SaveOrderAndCart(order, cart);
+
+            return RedirectToAction("Index", "Jewelry", new { id = jewelryId });
+
+        }
+
+        [HttpPost]
+        public IActionResult UpdateItem(int jewelryId, int count)
+        {
+            (Order order, Cart cart) = GetOrCreateOrderAndCart();
+
+            order.GetItem(jewelryId).Count = count;
+
+            SaveOrderAndCart(order, cart);
+
+            return RedirectToAction("Index", "Order");
+        }        
+
+        private (Order order, Cart cart) GetOrCreateOrderAndCart()
         {
             Order order;
-            Cart cart;
-
-            if (HttpContext.Session.TryGetCart(out cart))
+            if (HttpContext.Session.TryGetCart(out Cart cart))
             {
                 order = orderRepository.GetById(cart.OrderId);
             }
@@ -65,16 +88,28 @@ namespace Store.Web.Controllers
                 order = orderRepository.Create();
                 cart = new Cart(order.Id);
             }
+            return (order, cart);
+        }
 
-            var jewelry = jewelryRepository.GetById(id);
-            order.AddItem(jewelry, 1);
+        private void SaveOrderAndCart(Order order, Cart cart)
+        {
             orderRepository.Update(order);
 
             cart.TotalCount = order.TotalCount;
             cart.TotalPrice = order.TotalPrice;
-            HttpContext.Session.Set(cart);
 
-            return RedirectToAction("Index", "Jewelry", new { id });
+            HttpContext.Session.Set(cart);
+        }       
+
+        public IActionResult RemoveItem(int jewelryId)
+        {
+            (Order order, Cart cart) = GetOrCreateOrderAndCart();
+
+            order.RemoveItem(jewelryId);
+
+            SaveOrderAndCart(order, cart);
+
+            return RedirectToAction("Index", "Order");
         }
     }
 }
