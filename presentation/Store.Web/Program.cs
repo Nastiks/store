@@ -1,3 +1,4 @@
+using Store.Contractors;
 using Store.Memory;
 using Store.Messages;
 
@@ -23,6 +24,7 @@ namespace Store.Web
             builder.Services.AddSingleton<IJewelryRepository, JewelryRepository>();
             builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
             builder.Services.AddSingleton<INotificationService, DebugNotificationService>();
+            builder.Services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
             builder.Services.AddSingleton<JewelryService>();
 
             var app = builder.Build();
