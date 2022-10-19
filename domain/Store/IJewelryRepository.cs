@@ -1,5 +1,4 @@
-﻿
-namespace Store
+﻿namespace Store
 {
     public interface IJewelryRepository
     {

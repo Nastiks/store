@@ -1,0 +1,35 @@
+﻿@using Store.Web.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model ConfirmationModel
+
+@{
+    ViewData["Title"] = "Подтверждение номера телефона";
+}
+
+<h1>Подтверждение номера телефона</h1>
+
+<form action="@Url.Action("StartDelivery")" method="post">
+    <input type="hidden" name="id" value="@Model.OrderId" />
+    <input type="hidden" name="cellPhone" value="@Model.CellPhone" />
+    <div class="form-group">
+        <label for="code">Код подтверждения</label>
+        <input type="text" class="form-control" name="code" placeholder="0000" />
+        @if(Model.Errors.ContainsKey("code"))
+        {
+            <small class="form-text text-danger">@Model.Errors["code"]</small>
+        }
+    </div>
+    <button type="submit" class="btn btn-success">Проверить</button>
+</form>
+
+<form action="@Url.Action("SendConfirmationCode")" method="post">
+    <input type="hidden" name="id" value="@Model.OrderId"/>
+    <div class="form-group">
+        <label for="cellPhone">Номер телефона</label>
+        <input type="text" class="form-control" name="cellPhone" value="@Model.CellPhone"/>
+    </div>
+    <button type="submit" class="btn btn-success">Повторить код</button>
+</form>
