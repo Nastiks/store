@@ -16,6 +16,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\domain\Store\Store.csproj" />
     <ProjectReference Include="..\..\infrastructure\StoreMemory\Store.Memory.csproj" />
+    <ProjectReference Include="..\..\plugins\Store.YandexKassa\Store.YandexKassa.csproj" />
+    <ProjectReference Include="..\Store.Web.Contractors\Store.Web.Contractors.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +25,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Core" Version="6.0.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
     <PackageReference Include="Stripe.net" Version="40.12.0" />
-    <PackageReference Include="UmbracoCms.Core" Version="8.18.5" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,12 +1,12 @@
 ﻿@model Form
 
 @{
-    ViewData["Title"] = "Параметры доставки";
+    ViewData["Title"] = "Параметры оплаты";
 }
 
-<h1>Параметры доставки</h1>
+<h1>Параметры оплаты</h1>
 
-<form action="@Url.Action("NextDelivery")" method="post">
+<form action="@Url.Action("NextPayment")" method="post">
     <input type="hidden" name="id" value="@Model.OrderId" />
     <input type="hidden" name="uniqueCode" value="@Model.UniqueCode" />
     <input type="hidden" name="step" value="@Model.Step" />

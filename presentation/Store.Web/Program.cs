@@ -1,6 +1,8 @@
 using Store.Contractors;
 using Store.Memory;
 using Store.Messages;
+using Store.Web.Contractors;
+using Store.YandexKassa;
 
 namespace Store.Web
 {
@@ -25,6 +27,9 @@ namespace Store.Web
             builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
             builder.Services.AddSingleton<INotificationService, DebugNotificationService>();
             builder.Services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
+            builder.Services.AddSingleton<IPaymentService, CashPaymentService>();
+            builder.Services.AddSingleton<IPaymentService, YandexKassaPaymentService>();
+            builder.Services.AddSingleton<IWebContractorService, YandexKassaPaymentService>();
             builder.Services.AddSingleton<JewelryService>();
 
             var app = builder.Build();
@@ -51,6 +56,11 @@ namespace Store.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
+
+                endpoints.MapAreaControllerRoute(
+                    name: "yandex.kassa",
+                    areaName: "YandexKassa",
+                    pattern: "YandexKassa/{controller=Home}/{action=Index}/{id?}");
             });
             
             app.MapRazorPages();
