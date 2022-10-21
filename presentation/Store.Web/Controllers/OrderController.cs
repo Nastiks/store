@@ -75,7 +75,14 @@ namespace Store.Web.Controllers
 
             var jewelry = jewelryRepository.GetById(jewelryId);
 
-            order.AddOrUpdateItem(jewelry, count);
+            if (order.Items.TryGet(jewelryId, out OrderItem orderItem))
+            {
+                orderItem.Count += count;
+            }
+            else
+            {
+                order.Items.Add(jewelry.Id, jewelry.Price, count);
+            }
 
             SaveOrderAndCart(order, cart);
 
@@ -88,7 +95,7 @@ namespace Store.Web.Controllers
         {
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
-            order.GetItem(jewelryId).Count = count;
+            order.Items.Get(jewelryId).Count = count;
 
             SaveOrderAndCart(order, cart);
 
@@ -125,7 +132,7 @@ namespace Store.Web.Controllers
         {
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
-            order.RemoveItem(jewelryId);
+            order.Items.Remove(jewelryId);
 
             SaveOrderAndCart(order, cart);
 
