@@ -8,9 +8,9 @@ public class Jewelry
 
     public string VendorCode { get; }
 
-    public string Material { get; }    
+    public string Material { get; }
 
-    public string Title { get; }    
+    public string Title { get; }
 
     public string Description { get; }
 
@@ -26,7 +26,7 @@ public class Jewelry
         Price = price;  
     }
 
-    internal static bool IsVendorCode(string vendorCode)
+    public static bool IsVendorCode(string vendorCode)
     {
         if(vendorCode == null)
         {

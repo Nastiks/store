@@ -1,6 +1,7 @@
 using Store.Contractors;
 using Store.Memory;
 using Store.Messages;
+using Store.Web.App;
 using Store.Web.Contractors;
 using Store.YandexKassa;
 
@@ -15,6 +16,7 @@ namespace Store.Web
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
@@ -31,10 +33,11 @@ namespace Store.Web
             builder.Services.AddSingleton<IPaymentService, YandexKassaPaymentService>();
             builder.Services.AddSingleton<IWebContractorService, YandexKassaPaymentService>();
             builder.Services.AddSingleton<JewelryService>();
+            builder.Services.AddSingleton<OrderService>();
 
             var app = builder.Build();
 
-            if(app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -55,17 +58,16 @@ namespace Store.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapAreaControllerRoute(
-                    name: "yandex.kassa",
-                    areaName: "YandexKassa",
-                    pattern: "YandexKassa/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();                
             });
-            
+
             app.MapRazorPages();
 
             app.Run();
         }
-    }    
+    }
 }

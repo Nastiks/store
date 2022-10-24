@@ -14,23 +14,15 @@
             Name = name;
             Value = value;
         }
-    }
-
-    public class HiddenField : Field
-    {
-        public HiddenField(string label, string name, string value)
-            : base(label, name, value)
-        {
-        }
-    }
+    }   
 
     public class SelectionField : Field
     {
-        public IReadOnlyDictionary<string, string> Item { get; }
+        public IReadOnlyDictionary<string, string> Items { get; }
         public SelectionField(string label, string name, string value, IReadOnlyDictionary<string, string> items)
             :base(label, name, value)
         {
-            Item = items;
+            Items = items;
         }
     }
 }

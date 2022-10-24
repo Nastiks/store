@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Store.Web.App;
 
 namespace Store.Web.Controllers
 {
     public class JewelryController : Controller
     {
-        private readonly IJewelryRepository jewelryRepository;
+        private readonly JewelryService jewelryService;
 
-        public JewelryController(IJewelryRepository jewelryRepository)
+        public JewelryController(JewelryService jewelryService)
         {
-            this.jewelryRepository = jewelryRepository;
+            this.jewelryService = jewelryService;
         }
 
         public IActionResult Index(int id)
         {
-            Jewelry jewelry = jewelryRepository.GetById(id);
+            var model = jewelryService.GetById(id);
 
-            return View(jewelry);
+            return View(model);
         }
     }
 }

@@ -17,7 +17,7 @@
 
         public decimal Price { get; }
 
-        public OrderItem(int jewelryId, int count, decimal price)
+        public OrderItem(int jewelryId, decimal price, int count)
         {
             ThrowIfInvalidCount(count);
 
