@@ -1,6 +1,4 @@
-﻿using Store.Web.App;
-
-namespace Store
+﻿namespace Store.Web.App
 {
     public class JewelryService
     {
