@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Store.Web.Controllers
-{
-    
+{    
     public class SearchController : Controller
     {
         private readonly JewelryService jewelryService;
