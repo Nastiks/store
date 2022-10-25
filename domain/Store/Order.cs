@@ -1,49 +1,109 @@
-﻿namespace Store
+﻿using Store.Data;
+
+namespace Store
 {
     public class Order
     {
-        public int Id { get; }
+        private readonly OrderDto dto;
 
-        private List<OrderItem> items;
+        public int Id => dto.Id;
 
-        public OrderItemCollection Items { get; }
-       
-        public string CellPhone { get; set; }
-
-        public OrderDelivery Delivery { get; set; }
-
-        public OrderPayment Payment { get; set; }
-
-        public int TotalCount => Items.Sum(item => item.Count);        
-
-        public decimal TotalPrice => Items.Sum(item => item.Price * item.Count)
-                                     + (Delivery?.Amount ?? 0m);
-        
-        public Order(int id, IEnumerable<OrderItem> items)
+        public string CellPhone
         {
-            Id = id;
-            Items = new OrderItemCollection(items);
+            get => dto.CellPhone;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException(nameof(CellPhone));
+                }
+
+                dto.CellPhone = value;
+            }
         }
 
-        public OrderItem GetItem(int jewelryId)
+        public OrderDelivery Delivery
         {
-            int index = items.FindIndex(item => item.JewelryId == jewelryId);
-
-            if (index == -1)
+            get
             {
-                ThrowJewelryException("Jewelry not found.", jewelryId);
+                if (dto.DeliveryUniqueCode == null)
+                {
+                    return null;
+                }
+
+                return new OrderDelivery(
+                    dto.DeliveryUniqueCode,
+                    dto.DeliveryDescription,
+                    dto.DeliveryPrice,
+                    dto.DeliveryParameters);
             }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException(nameof(Delivery));
+                }
 
-            return items[index];
-        }       
+                dto.DeliveryUniqueCode = value.UniqueCode;
+                dto.DeliveryDescription = value.Description;
+                dto.DeliveryPrice = value.Price;
+                dto.DeliveryParameters = value.Parameters
+                                               .ToDictionary(p => p.Key, p => p.Value);
+            }
+        }
 
-        private void ThrowJewelryException(string message, int jewelryId)
+        public OrderPayment Payment
         {
-            var exception = new InvalidOperationException(message);
+            get
+            {
+                if (dto.PaymentServiceName == null)
+                {
+                    return null;
+                }
 
-            exception.Data["JewelryId"] = jewelryId;
+                return new OrderPayment(
+                    dto.PaymentServiceName,
+                    dto.PaymentDescription,
+                    dto.PaymentParameters);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException(nameof(Payment));
+                }
 
-            throw exception;
+                dto.PaymentServiceName = value.UniqueCode;
+                dto.PaymentDescription = value.Description;
+                dto.PaymentParameters = value.Parameters
+                                             .ToDictionary(p => p.Key, p => p.Value);
+            }
+        }
+
+        public OrderItemCollection Items { get; }
+
+
+        public int TotalCount => Items.Sum(item => item.Count);
+
+        public decimal TotalPrice => Items.Sum(item => item.Price * item.Count)
+                                     + (Delivery?.Price ?? 0m);
+
+        public Order(OrderDto dto)
+        {
+            this.dto = dto;
+            Items = new OrderItemCollection(dto);
+        }
+
+        public static class DtoFactory
+        {
+            public static OrderDto Create() => new OrderDto();
+        }
+
+        public static class Mapper
+        {
+            public static Order Map(OrderDto dto) => new Order(dto);
+
+            public static OrderDto Map(Order domain) => domain.dto;
         }
     }
 }
