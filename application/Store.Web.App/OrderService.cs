@@ -76,9 +76,9 @@ namespace Store.Web.App
 
         internal IEnumerable<Jewelry> GetJewelries(Order order)
         {
-            var jewelryId = order.Items.Select(item => item.JewelryId);
+            var jewelryIds = order.Items.Select(item => item.JewelryId);
 
-            return jewelryRepository.GetAllByIds(jewelryId);
+            return jewelryRepository.GetAllByIds(jewelryIds);
         }
 
         public OrderModel AddJewelry(int jewelryId, int count)
