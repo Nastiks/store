@@ -1,4 +1,5 @@
 using Store.Contractors;
+using Store.Data.EF;
 using Store.Messages;
 using Store.Web.App;
 using Store.Web.Contractors;
@@ -23,7 +24,9 @@ namespace Store.Web
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-            
+
+            builder.Services.AddEfRepositories(builder.Configuration.GetConnectionString("Store"));
+
             builder.Services.AddSingleton<INotificationService, DebugNotificationService>();
             builder.Services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
             builder.Services.AddSingleton<IPaymentService, CashPaymentService>();

@@ -16,12 +16,17 @@
   <ItemGroup>
     <ProjectReference Include="..\..\application\Store.Web.App\Store.Web.App.csproj" />
     <ProjectReference Include="..\..\domain\Store\Store.csproj" />
+    <ProjectReference Include="..\..\infrastructure\Store.Data.EF\Store.Data.EF.csproj" />
     <ProjectReference Include="..\..\plugins\Store.YandexKassa\Store.YandexKassa.csproj" />
     <ProjectReference Include="..\Store.Web.Contractors\Store.Web.Contractors.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Abp.Web.Common" Version="7.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Core" Version="6.0.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
     <PackageReference Include="Stripe.net" Version="40.12.0" />

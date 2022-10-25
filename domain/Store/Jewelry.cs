@@ -30,14 +30,14 @@ namespace Store
 
         public string Title
         {
-            get => dto.Title;
+            get => dto.Tittle;
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException(nameof(Title));
                 }
-                dto.Title = value.Trim();
+                dto.Tittle = value.Trim();
             }
         }
 
@@ -102,7 +102,7 @@ namespace Store
                 {
                     VendorCode = vendorCode,
                     Material = material?.Trim(),
-                    Title = tittle.Trim(),
+                    Tittle = tittle.Trim(),
                     Description = description?.Trim(),
                     Price = price,
                 };
