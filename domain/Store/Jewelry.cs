@@ -30,14 +30,14 @@ namespace Store
 
         public string Title
         {
-            get => dto.Tittle;
+            get => dto.Title;
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException(nameof(Title));
                 }
-                dto.Tittle = value.Trim();
+                dto.Title = value.Trim();
             }
         }
 
@@ -80,7 +80,7 @@ namespace Store
         {
             public static JewelryDto Create(string vendorCode,
                                             string material,
-                                            string tittle,
+                                            string title,
                                             string description,
                                             decimal price)
             {
@@ -93,16 +93,16 @@ namespace Store
                     throw new ArgumentException(nameof(vendorCode));
                 }
 
-                if (string.IsNullOrWhiteSpace(tittle))
+                if (string.IsNullOrWhiteSpace(title))
                 {
-                    throw new ArgumentException(nameof(tittle));
+                    throw new ArgumentException(nameof(title));
                 }
 
                 return new JewelryDto
                 {
                     VendorCode = vendorCode,
                     Material = material?.Trim(),
-                    Tittle = tittle.Trim(),
+                    Title = title.Trim(),
                     Description = description?.Trim(),
                     Price = price,
                 };

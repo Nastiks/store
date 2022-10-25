@@ -16,7 +16,7 @@ namespace Store.Data.EF.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VendorCode = table.Column<string>(type: "nvarchar(23)", maxLength: 23, nullable: false),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tittle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "money", nullable: false)
                 },
@@ -69,17 +69,17 @@ namespace Store.Data.EF.Migrations
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
-                columns: new[] { "Id", "Description", "Material", "Price", "Tittle", "VendorCode" },
+                columns: new[] { "Id", "Description", "Material", "Price", "Title", "VendorCode" },
                 values: new object[] { 1, "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside", "Epoxy resin and peonis", 2000m, "Earrings with peonies", "VendorCode0000000001" });
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
-                columns: new[] { "Id", "Description", "Material", "Price", "Tittle", "VendorCode" },
+                columns: new[] { "Id", "Description", "Material", "Price", "Title", "VendorCode" },
                 values: new object[] { 2, "Pendant made of jewelry resin in the form of a drop with a red rose inside", "Epoxy resin and rose", 1200m, "Rose pendant", "VendorCode0000000002" });
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
-                columns: new[] { "Id", "Description", "Material", "Price", "Tittle", "VendorCode" },
+                columns: new[] { "Id", "Description", "Material", "Price", "Title", "VendorCode" },
                 values: new object[] { 3, "A necklace made of natural pearls that will adorn any woman", "Pearl", 3000m, "Pearl Necklace", "VendorCode0000000003" });
 
             migrationBuilder.CreateIndex(

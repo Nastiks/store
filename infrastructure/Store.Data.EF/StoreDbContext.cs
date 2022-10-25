@@ -81,7 +81,7 @@ namespace Store.Data.EF
                       .HasMaxLength(23)
                       .IsRequired();
 
-                action.Property(dto => dto.Tittle)
+                action.Property(dto => dto.Title)
                       .IsRequired();
 
                 action.Property(dto => dto.Price)
@@ -93,7 +93,7 @@ namespace Store.Data.EF
                         Id = 1,
                         VendorCode = "VendorCode0000000001",
                         Material = "Epoxy resin and peonis",
-                        Tittle = "Earrings with peonies",
+                        Title = "Earrings with peonies",
                         Description = "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside",
                         Price = 2000m,
                     },
@@ -102,7 +102,7 @@ namespace Store.Data.EF
                         Id = 2,
                         VendorCode = "VendorCode0000000002",
                         Material = "Epoxy resin and rose",
-                        Tittle = "Rose pendant",
+                        Title = "Rose pendant",
                         Description = "Pendant made of jewelry resin in the form of a drop with a red rose inside",
                         Price = 1200m,
                     },
@@ -111,7 +111,7 @@ namespace Store.Data.EF
                         Id = 3,
                         VendorCode = "VendorCode0000000003",
                         Material = "Pearl",
-                        Tittle = "Pearl Necklace",
+                        Title = "Pearl Necklace",
                         Description = "A necklace made of natural pearls that will adorn any woman",
                         Price = 3000m,
                     });

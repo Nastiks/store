@@ -42,7 +42,7 @@ namespace Store.Data.EF.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.Property<string>("Tittle")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -62,7 +62,7 @@ namespace Store.Data.EF.Migrations
                             Description = "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside",
                             Material = "Epoxy resin and peonis",
                             Price = 2000m,
-                            Tittle = "Earrings with peonies",
+                            Title = "Earrings with peonies",
                             VendorCode = "VendorCode0000000001"
                         },
                         new
@@ -71,7 +71,7 @@ namespace Store.Data.EF.Migrations
                             Description = "Pendant made of jewelry resin in the form of a drop with a red rose inside",
                             Material = "Epoxy resin and rose",
                             Price = 1200m,
-                            Tittle = "Rose pendant",
+                            Title = "Rose pendant",
                             VendorCode = "VendorCode0000000002"
                         },
                         new
@@ -80,7 +80,7 @@ namespace Store.Data.EF.Migrations
                             Description = "A necklace made of natural pearls that will adorn any woman",
                             Material = "Pearl",
                             Price = 3000m,
-                            Tittle = "Pearl Necklace",
+                            Title = "Pearl Necklace",
                             VendorCode = "VendorCode0000000003"
                         });
                 });
