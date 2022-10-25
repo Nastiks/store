@@ -1,19 +1,25 @@
-﻿using System.Collections;
+﻿using Store.Data;
+using System.Collections;
 
 namespace Store
 {
     public class OrderItemCollection : IReadOnlyCollection<OrderItem>
     {
+        private readonly OrderDto orderDto;
         private readonly List<OrderItem> items;
 
-        public OrderItemCollection(IEnumerable<OrderItem> items)
+        public OrderItemCollection(OrderDto orderDto)
         {
-            if (items == null)
+            if (orderDto == null)
             {
-                throw new ArgumentNullException(nameof(items));
+                throw new ArgumentNullException(nameof(orderDto));
             }
 
-            this.items = new List<OrderItem>(items);
+            this.orderDto = orderDto;
+
+            items = orderDto.Items
+                            .Select(OrderItem.Mapper.Map)
+                            .ToList();
         }
 
         public int Count => items.Count;
@@ -54,17 +60,28 @@ namespace Store
         {
             if (TryGet(jewelryId, out OrderItem orderItem))
             {
-                throw new InvalidOperationException("Jewelry already exsists.");
+                throw new InvalidOperationException("Jewelry already exists.");
             }
 
-            orderItem = new OrderItem(jewelryId, price, count);
+            var orderItemDto = OrderItem.DtoFactory.Create(orderDto, jewelryId, price, count);
+            orderDto.Items.Add(orderItemDto);
+
+            orderItem = OrderItem.Mapper.Map(orderItemDto);
             items.Add(orderItem);
+
             return orderItem;
         }
 
         public void Remove(int jewelryId)
         {
-            items.Remove(Get(jewelryId));
+            var index = items.FindIndex(item => item.JewelryId == jewelryId);
+            if (index == -1)
+            {
+                throw new InvalidOperationException("Can`t find jewelry to remove from order.");
+            }
+
+            orderDto.Items.RemoveAt(index);
+            items.RemoveAt(index);
         }
     }
 }

@@ -1,29 +1,31 @@
-﻿namespace Store
+﻿using Store.Data;
+
+namespace Store
 {
     public class OrderItem
     {
-        public int JewelryId { get; }
+        private readonly OrderItemDto dto;
+        public int JewelryId => dto.JewelryId;
 
-        private int count;
         public int Count
         {
-            get { return count; }
+            get => dto.Count;
             set
             {
                 ThrowIfInvalidCount(value);
-                count = value;
+                dto.Count = value;
             }
         }
 
-        public decimal Price { get; }
-
-        public OrderItem(int jewelryId, decimal price, int count)
+        public decimal Price
         {
-            ThrowIfInvalidCount(count);
+            get => dto.Price;
+            set => dto.Price = value;
+        }
 
-            JewelryId = jewelryId;
-            Count = count;
-            Price = price;
+        internal OrderItem(OrderItemDto dto)
+        {
+            this.dto = dto;
         }
 
         private static void ThrowIfInvalidCount(int count)
@@ -32,6 +34,34 @@
             {
                 throw new ArgumentOutOfRangeException("Count must be greater than zero.");
             }
+        }
+
+        public static class DtoFactory
+        {
+            public static OrderItemDto Create(OrderDto order, int jewelryId, decimal price, int count)
+            {
+                if (order == null)
+                {
+                    throw new ArgumentNullException(nameof(order));
+                }
+
+                ThrowIfInvalidCount(count);
+
+                return new OrderItemDto
+                {
+                    JewelryId = jewelryId,
+                    Price = price,
+                    Count = count,
+                    Order = order,
+                };
+            }
+        }
+
+        public static class Mapper
+        {
+            public static OrderItem Map(OrderItemDto dto) => new OrderItem(dto);
+
+            public static OrderItemDto Map(OrderItem domain) => domain.dto;
         }
     }
 }

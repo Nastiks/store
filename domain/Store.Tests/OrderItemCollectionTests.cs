@@ -1,29 +1,36 @@
-﻿namespace Store.Tests
+﻿using Store.Data;
+
+namespace Store.Tests
 {
     public class OrderItemCollectionTests
     {
         [Fact]
         public void Get_WithExistingItem_ReturnsItem()
         {
-            var order = new Order(1, new[]
-            {
-                new OrderItem(1, 10m, 3),
-                new OrderItem(2, 100m, 5),
-            });
+            var order = CreateTestOrder();
 
             var orderItem = order.Items.Get(1);
 
             Assert.Equal(3, orderItem.Count);
         }
 
+        private static Order CreateTestOrder()
+        {
+            return new Order(new OrderDto
+            {
+                Id = 1,
+                Items = new List<OrderItemDto>
+                {
+                    new OrderItemDto {JewelryId = 1, Price = 10m, Count = 3},
+                    new OrderItemDto {JewelryId = 2, Price = 100m, Count = 5},
+                }
+            });
+        }
+
         [Fact]
         public void Get_WithNonExistingItem_ThrowsInvalidOperationException()
         {
-            var order = new Order(1, new[]
-            {
-                new OrderItem(1, 10m, 3),
-                new OrderItem(2, 100m, 5),
-            });
+            var order = CreateTestOrder();
 
             Assert.Throws<InvalidOperationException>(() =>
             {
@@ -34,11 +41,7 @@
         [Fact]
         public void Add_WithExistingItem_ThrowInvalidOperationException()
         {
-            var order = new Order(1, new[]
-            {
-                new OrderItem(1, 10m, 3),
-                new OrderItem(2, 100m, 5),
-            });
+            var order = CreateTestOrder();
 
             Assert.Throws<InvalidOperationException>(() =>
             {
@@ -49,11 +52,7 @@
         [Fact]
         public void Add_WithNonExistingItem_SetsCount()
         {
-            var order = new Order(1, new[]
-            {
-                new OrderItem(1, 10m, 3),
-                new OrderItem(2, 100m, 5),
-            });
+            var order = CreateTestOrder();
 
             order.Items.Add(4, 30m, 10);
 
@@ -63,11 +62,7 @@
         [Fact]
         public void Remove_WithExistingItem_RemovesItem()
         {
-            var order = new Order(1, new[]
-            {
-                new OrderItem(1, 10m, 3),
-                new OrderItem(2, 100m, 5),
-            });
+            var order = CreateTestOrder();
 
             order.Items.Remove(1);
 
@@ -78,11 +73,7 @@
         [Fact]
         public void Remove_WithNonExistingItem_ThrowsInvalidOperationException()
         {
-            var order = new Order(1, new[]
-             {
-                new OrderItem(1, 10m, 3),
-                new OrderItem(2, 100m, 5),
-            });
+            var order = CreateTestOrder();
 
             Assert.Throws<InvalidOperationException>(() =>
             {

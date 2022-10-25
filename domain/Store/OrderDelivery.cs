@@ -6,7 +6,7 @@
 
         public string Description { get; }
 
-        public decimal Amount { get; }
+        public decimal Price { get; }
 
         public IReadOnlyDictionary<string, string> Parameters { get; }
 
@@ -32,7 +32,7 @@
 
             UniqueCode = uniqueCode;
             Description = description;
-            Amount = amount;
+            Price = amount;
             Parameters = parameters;
         }
     }
