@@ -11,7 +11,7 @@ using Store.Data.EF;
 namespace Store.Data.EF.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20221025120156_FullTextSearch")]
+    [Migration("20221025160750_FullTextSearch")]
     partial class FullTextSearch
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,36 +94,29 @@ namespace Store.Data.EF.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CellPhone")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("DeliveryDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DeliveryParameters")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DeliveryPrice")
                         .HasColumnType("money");
 
                     b.Property<string>("DeliveryUniqueCode")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("PaymentDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentParameters")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentServiceName")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 

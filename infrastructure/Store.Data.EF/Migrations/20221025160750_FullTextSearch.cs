@@ -16,7 +16,6 @@ namespace Store.Data.EF.Migrations
         {
             migrationBuilder.Sql("DROP FULLTEXT INDEX ON Jewelries", suppressTransaction: true);
             migrationBuilder.Sql("DROP FULLTEXT CATALOG StoreFullTextCatalog", suppressTransaction: true);
-            
         }
     }
 }
