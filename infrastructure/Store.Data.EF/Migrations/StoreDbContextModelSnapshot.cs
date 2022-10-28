@@ -2,10 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Store.Data.EF;
-
-#nullable disable
 
 namespace Store.Data.EF.Migrations
 {
@@ -16,26 +12,27 @@ namespace Store.Data.EF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+                .HasAnnotation("ProductVersion", "3.1.5")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Store.Data.JewelryDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Material")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VendorCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(23)")
+                        .HasMaxLength(23);
 
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
@@ -43,11 +40,6 @@ namespace Store.Data.EF.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VendorCode")
-                        .IsRequired()
-                        .HasMaxLength(23)
-                        .HasColumnType("nvarchar(23)");
 
                     b.HasKey("Id");
 
@@ -57,29 +49,32 @@ namespace Store.Data.EF.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside",
                             Material = "Epoxy resin and peonis",
+                            Description = "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside",
+                            VendorCode = "VENDORCODE0000000001",
                             Price = 2000m,
-                            Title = "Earrings with peonies",
-                            VendorCode = "VENDORCODE0000000001"
+                            Title = "Earrings with peonies"
+
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Pendant made of jewelry resin in the form of a drop with a red rose inside",
                             Material = "Epoxy resin and rose",
+                            Description = "Pendant made of jewelry resin in the form of a drop with a red rose inside",
+                            VendorCode = "VENDORCODE0000000002",
                             Price = 1200m,
-                            Title = "Rose pendant",
-                            VendorCode = "VENDORCODE0000000002"
+                            Title = "Rose pendant"
+
                         },
                         new
                         {
                             Id = 3,
-                            Description = "A necklace made of natural pearls that will adorn any woman",
                             Material = "Pearl",
+                            Description = "A necklace made of natural pearls that will adorn any woman",
+                            VendorCode = "VENDORCODE0000000003",
                             Price = 3000m,
-                            Title = "Pearl Necklace",
-                            VendorCode = "VENDORCODE0000000003"
+                            Title = "Pearl Necklace"
+
                         });
                 });
 
@@ -87,13 +82,12 @@ namespace Store.Data.EF.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CellPhone")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("DeliveryDescription")
                         .HasColumnType("nvarchar(max)");
@@ -105,8 +99,8 @@ namespace Store.Data.EF.Migrations
                         .HasColumnType("money");
 
                     b.Property<string>("DeliveryUniqueCode")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("PaymentDescription")
                         .HasColumnType("nvarchar(max)");
@@ -115,8 +109,8 @@ namespace Store.Data.EF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentServiceName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
@@ -127,14 +121,13 @@ namespace Store.Data.EF.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("JewelryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
                         .HasColumnType("int");
 
                     b.Property<int>("OrderId")
@@ -157,14 +150,8 @@ namespace Store.Data.EF.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
                 });
-
-            modelBuilder.Entity("Store.Data.OrderDto", b =>
-                {
-                    b.Navigation("Items");
-                });
+            
 #pragma warning restore 612, 618
         }
     }

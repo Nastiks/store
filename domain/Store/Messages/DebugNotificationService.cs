@@ -18,7 +18,9 @@ namespace Store.Messages
 
         public void StartProcess(Order order)
         {
-            Debug.WriteLine("Order ID {0}", order.Id);            
+            Debug.WriteLine("Order ID {0}", order.Id);
+            Debug.WriteLine("Delivery: {0}", (object)order.Delivery.Description);
+            Debug.WriteLine("Payment: {0}", (object)order.Payment.Description);
         }
 
         public Task StartProcessAsync(Order order)

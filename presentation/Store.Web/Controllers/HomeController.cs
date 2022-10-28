@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Store.Web.Controllers
 {
-    public partial class HomeController : Controller
+    public class HomeController : Controller
     {        
         public IActionResult Index()
         {
@@ -18,4 +18,3 @@ namespace Store.Web.Controllers
         }
     }    
 }
-

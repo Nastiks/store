@@ -16,24 +16,12 @@ namespace Store.Data.EF
         {
             var dbContext = dbContextFactory.Create(typeof(JewelryRepository));
 
-            return dbContext.Jewelries
-                            .Where(jewelry => jewelryIds.Contains(jewelry.Id))
-                            .AsEnumerable()
-                            .Select(Jewelry.Mapper.Map)
-                            .ToArray();
-        }
+            var dtos = dbContext.Jewelries
+                                .Where(jewelry => jewelryIds.Contains(jewelry.Id))
+                                .ToArray();
 
-        public Jewelry[] GetAllByTitleOrMaterial(string titleOrMaterial)
-        {
-            var dbContext = dbContextFactory.Create(typeof(JewelryRepository));
-
-            var parameter = new SqlParameter("@titleOrMaterial", titleOrMaterial);
-            return dbContext.Jewelries
-                            .FromSqlRaw("SELECT * FROM Jewelries WHERE CONTAINS((Material, Title), @titleOrMaterial)",
-                                                  parameter)
-                            .AsEnumerable()
-                            .Select(Jewelry.Mapper.Map)
-                            .ToArray();
+            return dtos.Select(Jewelry.Mapper.Map)
+                       .ToArray();
         }
 
         public Jewelry[] GetAllByVendorCode(string vendorCode)
@@ -42,15 +30,30 @@ namespace Store.Data.EF
 
             if (Jewelry.TryFormatVendorCode(vendorCode, out string formattedVendorCode))
             {
-                return dbContext.Jewelries
-                           .Where(jewelry => jewelry.VendorCode == formattedVendorCode)
-                           .AsEnumerable()
-                           .Select(Jewelry.Mapper.Map)
+                var dtos = dbContext.Jewelries
+                                .Where(jewelry => jewelry.VendorCode == formattedVendorCode)
+                                .ToArray();
+
+                return dtos.Select(Jewelry.Mapper.Map)
                            .ToArray();
             }
 
             return new Jewelry[0];
         }
+
+        public Jewelry[] GetAllByTitleOrMaterial(string titleOrMaterial)
+        {
+            var dbContext = dbContextFactory.Create(typeof(JewelryRepository));
+
+            var parameter = new SqlParameter("@titleOrMaterial", titleOrMaterial);
+            var dtos = dbContext.Jewelries
+                                .FromSqlRaw("SELECT * FROM Jewelries WHERE CONTAINS((Material, Title), @titleOrMaterial)",
+                                            parameter)
+                                 .ToArray();
+
+            return dtos.Select(Jewelry.Mapper.Map)
+                       .ToArray();
+        }        
 
         public Jewelry GetById(int id)
         {

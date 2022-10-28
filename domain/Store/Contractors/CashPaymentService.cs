@@ -16,7 +16,7 @@
         {
             if (step != 1)
             {
-                throw new InvalidOperationException("Invalid cash payment form.");
+                throw new InvalidOperationException("Invalid cash payment step.");
             }
 
             return Form.CreateLast(Name, step + 1, values);
