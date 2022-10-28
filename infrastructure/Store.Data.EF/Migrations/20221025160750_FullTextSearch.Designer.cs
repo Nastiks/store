@@ -57,6 +57,7 @@ namespace Store.Data.EF.Migrations
                             VendorCode = "VENDORCODE0000000001",
                             Price = 2000m,
                             Title = "Earrings with peonies"
+
                         },
                         new
                         {
@@ -66,6 +67,7 @@ namespace Store.Data.EF.Migrations
                             VendorCode = "VENDORCODE0000000002",
                             Price = 1200m,
                             Title = "Rose pendant"
+
                         },
                         new
                         {
@@ -75,6 +77,7 @@ namespace Store.Data.EF.Migrations
                             VendorCode = "VENDORCODE0000000003",
                             Price = 3000m,
                             Title = "Pearl Necklace"
+
                         });
                 });
 

@@ -1,15 +1,10 @@
-﻿@using Store.Web.Controllers
-@using Store
-@using Microsoft.AspNetCore.Mvc.RazorPages
-
-
-@model ErrorViewModel
+﻿@model ErrorViewModel
 @{
     ViewData["Title"] = "Ошибка";
 }
 
 <h1 class="text-danger">Ошибка</h1>
-<h2 class="text-danger">При обработке запроса произошла ошибка.</h2>
+<p>При обработке запроса произошла ошибка.</p>
 
 @if (Model.ShowRequestId)
 {

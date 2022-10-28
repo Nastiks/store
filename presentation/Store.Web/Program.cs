@@ -13,8 +13,11 @@ namespace Store.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(typeof(ExceptionFilter));
+            });
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddDistributedMemoryCache();
@@ -37,7 +40,8 @@ namespace Store.Web
 
             var app = builder.Build();
 
-            if (app.Environment.IsDevelopment())
+            //if (app.Environment.IsDevelopment())
+            if (false)
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -62,7 +66,7 @@ namespace Store.Web
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapDefaultControllerRoute();                
+                endpoints.MapDefaultControllerRoute();
             });
 
             app.MapRazorPages();
