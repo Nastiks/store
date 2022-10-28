@@ -91,7 +91,7 @@ namespace Store.Data.EF
                     new JewelryDto
                     {
                         Id = 1,
-                        VendorCode = "VendorCode0000000001",
+                        VendorCode = "VENDORCODE0000000001",
                         Material = "Epoxy resin and peonis",
                         Title = "Earrings with peonies",
                         Description = "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside",
@@ -100,7 +100,7 @@ namespace Store.Data.EF
                     new JewelryDto
                     {
                         Id = 2,
-                        VendorCode = "VendorCode0000000002",
+                        VendorCode = "VENDORCODE0000000002",
                         Material = "Epoxy resin and rose",
                         Title = "Rose pendant",
                         Description = "Pendant made of jewelry resin in the form of a drop with a red rose inside",
@@ -109,7 +109,7 @@ namespace Store.Data.EF
                     new JewelryDto
                     {
                         Id = 3,
-                        VendorCode = "VendorCode0000000003",
+                        VendorCode = "VENDORCODE0000000003",
                         Material = "Pearl",
                         Title = "Pearl Necklace",
                         Description = "A necklace made of natural pearls that will adorn any woman",

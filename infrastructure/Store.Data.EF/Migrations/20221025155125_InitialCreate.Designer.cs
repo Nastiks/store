@@ -63,7 +63,7 @@ namespace Store.Data.EF.Migrations
                             Material = "Epoxy resin and peonis",
                             Price = 2000m,
                             Title = "Earrings with peonies",
-                            VendorCode = "VendorCode0000000001"
+                            VendorCode = "VENDORCODE0000000001"
                         },
                         new
                         {
@@ -72,7 +72,7 @@ namespace Store.Data.EF.Migrations
                             Material = "Epoxy resin and rose",
                             Price = 1200m,
                             Title = "Rose pendant",
-                            VendorCode = "VendorCode0000000002"
+                            VendorCode = "VENDORCODE0000000002"
                         },
                         new
                         {
@@ -81,7 +81,7 @@ namespace Store.Data.EF.Migrations
                             Material = "Pearl",
                             Price = 3000m,
                             Title = "Pearl Necklace",
-                            VendorCode = "VendorCode0000000003"
+                            VendorCode = "VENDORCODE0000000003"
                         });
                 });
 
