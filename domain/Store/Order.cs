@@ -82,7 +82,6 @@ namespace Store
 
         public OrderItemCollection Items { get; }
 
-
         public int TotalCount => Items.Sum(item => item.Count);
 
         public decimal TotalPrice => Items.Sum(item => item.Price * item.Count)

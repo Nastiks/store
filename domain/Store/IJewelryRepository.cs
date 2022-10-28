@@ -4,7 +4,7 @@
     {
         Jewelry[] GetAllByVendorCode(string vendorCode);
 
-        Jewelry[] GetAllByTitleOrMaterial(string titlePartOrMaterial);
+        Jewelry[] GetAllByTitleOrMaterial(string titleOrMaterial);
 
         Jewelry GetById(int id);
         Jewelry[] GetAllByIds(IEnumerable<int> jewelryIds);

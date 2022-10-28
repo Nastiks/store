@@ -9,7 +9,7 @@ namespace Store
 
         public int Count
         {
-            get => dto.Count;
+            get { return dto.Count; }
             set
             {
                 ThrowIfInvalidCount(value);

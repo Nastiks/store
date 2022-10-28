@@ -21,7 +21,6 @@ namespace Store.Data.EF
             {
                 dbContext[repositoryType] = services.GetService<StoreDbContext>();
             }
-
             return dbContext[repositoryType];
         }
     }

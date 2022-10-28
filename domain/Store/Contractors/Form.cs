@@ -26,7 +26,7 @@
                 throw new ArgumentNullException(nameof(parameters));
             }
 
-            return new Form(serviceName, step, isFinal:false, parameters) ;
+            return new Form(serviceName, step, isFinal: false, parameters) ;
         }
 
         public static Form CreateLast(string serviceName, int step, IReadOnlyDictionary<string, string> parameters)

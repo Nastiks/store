@@ -12,12 +12,12 @@ namespace Store.Data.EF.Migrations
                 name: "Jewelries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VendorCode = table.Column<string>(type: "nvarchar(23)", maxLength: 23, nullable: false),
-                    Material = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VendorCode = table.Column<string>(maxLength: 23, nullable: false),
+                    Material = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(type: "money", nullable: false)
                 },
                 constraints: table =>
@@ -29,16 +29,16 @@ namespace Store.Data.EF.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CellPhone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    DeliveryUniqueCode = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
-                    DeliveryDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CellPhone = table.Column<string>(maxLength: 20, nullable: true),
+                    DeliveryUniqueCode = table.Column<string>(maxLength: 40, nullable: true),
+                    DeliveryDescription = table.Column<string>(nullable: true),
                     DeliveryPrice = table.Column<decimal>(type: "money", nullable: false),
-                    DeliveryParameters = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PaymentServiceName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
-                    PaymentDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PaymentParameters = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DeliveryParameters = table.Column<string>(nullable: true),
+                    PaymentServiceName = table.Column<string>(maxLength: 40, nullable: true),
+                    PaymentDescription = table.Column<string>(nullable: true),
+                    PaymentParameters = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,12 +49,12 @@ namespace Store.Data.EF.Migrations
                 name: "OrderItems",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    JewelryId = table.Column<int>(type: "int", nullable: false),
+                    JewelryId = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(type: "money", nullable: false),
-                    Count = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false)
+                    Count = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,18 +69,18 @@ namespace Store.Data.EF.Migrations
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
-                columns: new[] { "Id", "Description", "Material", "Price", "Title", "VendorCode" },
-                values: new object[] { 1, "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside", "Epoxy resin and peonis", 2000m, "Earrings with peonies", "VendorCode0000000001" });
+                columns: new[] { "Id", "Material", "Description", "VendorCode", "Price", "Title" },
+                values: new object[] { 1,"Epoxy resin and peonis", "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside", "VENDORCODE0000000001", 2000m, "Earrings with peonies"});
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
-                columns: new[] { "Id", "Description", "Material", "Price", "Title", "VendorCode" },
-                values: new object[] { 2, "Pendant made of jewelry resin in the form of a drop with a red rose inside", "Epoxy resin and rose", 1200m, "Rose pendant", "VendorCode0000000002" });
+                columns: new[] { "Id", "Material", "Description", "VendorCode", "Price", "Title" },
+                values: new object[] { 2, "Epoxy resin and rose", "Pendant made of jewelry resin in the form of a drop with a red rose inside", "VENDORCODE0000000002", 1200m, "Rose pendant"});
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
-                columns: new[] { "Id", "Description", "Material", "Price", "Title", "VendorCode" },
-                values: new object[] { 3, "A necklace made of natural pearls that will adorn any woman", "Pearl", 3000m, "Pearl Necklace", "VendorCode0000000003" });
+                columns: new[] { "Id", "Material", "Description", "VendorCode", "Price", "Title" },
+                values: new object[] { 3,"Pearl", "A necklace made of natural pearls that will adorn any woman", "VENDORCODE0000000003", 3000m, "Pearl Necklace"});
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_OrderId",

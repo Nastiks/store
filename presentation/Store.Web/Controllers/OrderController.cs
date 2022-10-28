@@ -23,6 +23,17 @@ namespace Store.Web.Controllers
             this.webContractorServices = webContractorServices;
         }
 
+        //[HttpGet]
+        //public IActionResult Index()
+        //{
+        //    if (orderService.TryGetModel(out OrderModel model))
+        //    {
+        //        return View(model);
+        //    }
+
+        //    return View("Empty");
+        //}
+
         [HttpGet]
         public IActionResult Index()
         {
