@@ -67,11 +67,13 @@ namespace Store.Data.EF
         }
 
         private static readonly ValueComparer DictionaryComparer =
-                   new ValueComparer<Dictionary<string, string>>(
-                       (dictionary1, dictionary2) => dictionary1.SequenceEqual(dictionary2),
-                       dictionary => dictionary.Aggregate(
-                           0,
-                           (a, p) => HashCode.Combine(HashCode.Combine(a, p.Key.GetHashCode()), p.Value.GetHashCode())));
+           new ValueComparer<Dictionary<string, string>>(
+               (dictionary1, dictionary2) => dictionary1.SequenceEqual(dictionary2),
+               dictionary => dictionary.Aggregate(
+                   0,
+                   (a, p) => HashCode.Combine(HashCode.Combine(a, p.Key.GetHashCode()), p.Value.GetHashCode())
+               )
+           );
 
         private static void BuildJewelries(ModelBuilder modelBuilder)
         {
