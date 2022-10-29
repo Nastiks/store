@@ -13,9 +13,9 @@ namespace Store.Data.EF
                     options.UseSqlServer(connectionString);
                 },
                 ServiceLifetime.Transient
-                );
+            );
 
-            services.AddScoped<Dictionary <Type, StoreDbContext>>();
+            services.AddScoped<Dictionary<Type, StoreDbContext>>();
             services.AddSingleton<DbContextFactory>();
             services.AddSingleton<IJewelryRepository, JewelryRepository>();
             services.AddSingleton<IOrderRepository, OrderRepository>();
