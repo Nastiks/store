@@ -2,11 +2,9 @@
 {
     public interface IJewelryRepository
     {
-        Jewelry[] GetAllByVendorCode(string vendorCode);
-
-        Jewelry[] GetAllByTitleOrMaterial(string titleOrMaterial);
-
-        Jewelry GetById(int id);
-        Jewelry[] GetAllByIds(IEnumerable<int> jewelryIds);
+        Task<Jewelry[]> GetAllByTitleOrMaterialAsync(string titleOrMaterial);
+        Task<Jewelry[]> GetAllByVendorCodeAsync(string vendorCode);
+        Task<Jewelry> GetByIdAsync(int id);        
+        Task<Jewelry[]> GetAllByIdsAsync(IEnumerable<int> jewelryIds);
     }
 }

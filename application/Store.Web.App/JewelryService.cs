@@ -7,20 +7,20 @@
         public JewelryService(IJewelryRepository jewelryRepository)
         {
             this.jewelryRepository = jewelryRepository;
-        }
+        }        
 
-        public JewelryModel GetById(int id)
+        public async Task<JewelryModel> GetByIdAsync(int id)
         {
-            var jewelry = jewelryRepository.GetById(id);
+            var jewelry = await jewelryRepository.GetByIdAsync(id);
 
             return Map(jewelry);
         }
 
-        public IReadOnlyCollection<JewelryModel> GetAllByQuery(string query)
+        public async Task<IReadOnlyCollection<JewelryModel>> GetAllByQueryAsync(string query)
         {
             var jewelries = Jewelry.IsVendorCode(query)
-                            ? jewelryRepository.GetAllByVendorCode(query)
-                            : jewelryRepository.GetAllByTitleOrMaterial(query);
+                            ? await jewelryRepository.GetAllByVendorCodeAsync(query)
+                            : await jewelryRepository.GetAllByTitleOrMaterialAsync(query);
 
             return jewelries.Select(Map)
                             .ToArray();
