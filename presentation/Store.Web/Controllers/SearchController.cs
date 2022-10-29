@@ -10,11 +10,11 @@ namespace Store.Web.Controllers
         public SearchController(JewelryService jewelryService)
         {
             this.jewelryService = jewelryService;
-        }
+        }        
 
-        public IActionResult Index(string query)
+        public async Task<IActionResult> Index(string query)
         {
-            var jewelries = jewelryService.GetAllByQuery(query);
+            var jewelries = await jewelryService.GetAllByQueryAsync(query);
 
             return View("Index", jewelries);
         }

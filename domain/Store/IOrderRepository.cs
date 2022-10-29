@@ -1,9 +1,9 @@
 ﻿namespace Store
 {
     public interface IOrderRepository
-    {
-        Order Create();
-        Order GetById(int id);
-        void Update(Order order);
+    {       
+        Task<Order> CreateAsync();        
+        Task<Order> GetByIdAsync(int id);        
+        Task UpdateAsync(Order order);
     }
 }

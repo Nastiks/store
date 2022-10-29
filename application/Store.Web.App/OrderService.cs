@@ -22,35 +22,31 @@ namespace Store.Web.App
             this.orderRepository = orderRepository;
             this.notificationService = notificationService;
             this.httpContextAccessor = httpContextAccessor;
-        }
+        }       
 
-        public bool TryGetModel(out OrderModel model)
-        {            
-            if (TryGetOrder(out Order order))
-            {
-                model = Map(order);
-                return true;
+        public async Task<(bool hasValue, OrderModel model)> TryGetModelAsync()
+        {
+            var (hasValue, order) = await TryGetOrderAsync();
+            if (hasValue)
+            {                
+                return (true, await MapAsync(order));
             }
+            return (false, null);
+        }          
 
-            model = null;
-            return false;
-        }
-
-        internal bool TryGetOrder(out Order order)
+        internal async Task<(bool hasValue, Order order)> TryGetOrderAsync()
         {
             if (Session.TryGetCart(out Cart cart))
             {
-                order = orderRepository.GetById(cart.OrderId);
-                return true;
+                var order = await orderRepository.GetByIdAsync(cart.OrderId);
+                return (true, order);
             }
+            return (false, null);
+        }        
 
-            order = null;
-            return false;
-        }
-
-        internal OrderModel Map(Order order)
+        internal async Task<OrderModel> MapAsync(Order order)
         {
-            var jewelries = GetJewelries(order);
+            var jewelries = await GetJewelriesAsync(order);
             var items = from item in order.Items
                         join jewelry in jewelries on item.JewelryId equals jewelry.Id
                         select new OrderItemModel
@@ -72,37 +68,39 @@ namespace Store.Web.App
                 DeliveryDescription = order.Delivery?.Description,
                 PaymentDescription = order.Payment?.Description
             };
-        }
+        }       
 
-        internal IEnumerable<Jewelry> GetJewelries(Order order)
+        internal async Task<IEnumerable<Jewelry>> GetJewelriesAsync(Order order)
         {
             var jewelryIds = order.Items.Select(item => item.JewelryId);
 
-            return jewelryRepository.GetAllByIds(jewelryIds);
+            return await jewelryRepository.GetAllByIdsAsync(jewelryIds);
         }
 
-        public OrderModel AddJewelry(int jewelryId, int count)
+        public async Task<OrderModel> AddJewelryAsync(int jewelryId, int count)
         {
             if (count < 1)
             {
                 throw new InvalidOperationException("Too few jewelries to add");
             }
 
-            if (!TryGetOrder(out Order order))
+            var (hasValue, order) = await TryGetOrderAsync();
+
+            if (!hasValue)
             {
-                order = orderRepository.Create();               
+                order = await orderRepository.CreateAsync();
             }
 
-            AddOrUpdateJewelry(order, jewelryId, count);
+            await AddOrUpdateJewelryAsync(order, jewelryId, count);
             UpdateSession(order);
 
-            return Map(order);
-        }
+            return await MapAsync(order);
+        }               
 
-        internal void AddOrUpdateJewelry(Order order, int jewelryId, int count)
+        internal async Task AddOrUpdateJewelryAsync(Order order, int jewelryId, int count)
         {
-            var jewelry = jewelryRepository.GetById(jewelryId);
-
+            var jewelry = await jewelryRepository.GetByIdAsync(jewelryId);
+            
             if (order.Items.TryGet(jewelryId, out OrderItem orderItem))
             {
                 orderItem.Count += count;
@@ -112,58 +110,60 @@ namespace Store.Web.App
                 order.Items.Add(jewelry.Id, jewelry.Price, count);
             }
 
-            orderRepository.Update(order);
+            await orderRepository.UpdateAsync(order);
         }
 
         internal void UpdateSession(Order order)
         {
             var cart = new Cart(order.Id, order.TotalCount, order.TotalPrice);
             Session.Set(cart);
-        }
+        }        
 
-        public OrderModel UpdateJewelry(int jewelryId, int count)
+        public async Task<OrderModel> UpdateJewelryAsync(int jewelryId, int count)
         {
-            var order = GetOrder();
+            var order = await GetOrderAsync();
             order.Items.Get(jewelryId).Count = count;
 
-            orderRepository.Update(order);
+            await orderRepository.UpdateAsync(order);
             UpdateSession(order);
 
-            return Map(order);
-        }
+            return await MapAsync(order);
+        }       
 
-        public OrderModel RemoveJewelry(int jewelryId)
+        public async Task<OrderModel> RemoveJewelryAsync(int jewelryId)
         {
-            var order = GetOrder();
+            var order = await GetOrderAsync();
             order.Items.Remove(jewelryId);
 
-            orderRepository.Update(order);
+            await orderRepository.UpdateAsync(order);
             UpdateSession(order);
 
-            return Map(order);
+            return await MapAsync(order);
         }
-
-        public Order GetOrder()
+        
+        public async Task<Order> GetOrderAsync()
         {
-            if (TryGetOrder(out Order order))
+            var (hasValue, order) = await TryGetOrderAsync();
+
+            if (hasValue)
             {
                 return order;
             }
 
             throw new InvalidOperationException("Empty session.");
-        }
+        }       
 
-        public OrderModel SendConfirmation(string cellPhone)
+        public async Task<OrderModel> SendConfirmationAsync(string cellPhone)
         {
-            var order = GetOrder();
-            var model = Map(order);
+            var order = await GetOrderAsync();
+            var model = await MapAsync(order);
 
             if (TryFormatPhone(cellPhone, out string formattedPhone))
             {
                 var confirmationCode = 1111; // todo: random .Next(1000, 10000)
                 model.CellPhone = formattedPhone;
                 Session.SetInt32(formattedPhone, confirmationCode);
-                notificationService.SendConfirmationCode(formattedPhone, confirmationCode);
+                await notificationService.SendConfirmationCodeAsync(formattedPhone, confirmationCode);
             }
             else
             {
@@ -188,9 +188,9 @@ namespace Store.Web.App
                 formattedPhone = null;
                 return false;
             }            
-        }
+        }        
 
-        public OrderModel ConfirmCellPhone(string cellPhone, int confirmationCode)
+        public async Task<OrderModel> ConfirmCellPhoneAsync(string cellPhone, int confirmationCode)
         {
             int? storedCode = Session.GetInt32(cellPhone);
             var model = new OrderModel();
@@ -207,34 +207,34 @@ namespace Store.Web.App
                 return model;
             }
 
-            var order = GetOrder();
+            var order = await GetOrderAsync();
             order.CellPhone = cellPhone;
-            orderRepository.Update(order);
+            await orderRepository.UpdateAsync(order);
 
             Session.Remove(cellPhone);
 
-            return Map(order);
-        }
+            return await MapAsync(order);
+        }       
 
-        public OrderModel SetDelivery(OrderDelivery delivery)
+        public async Task<OrderModel> SetDeliveryAsync(OrderDelivery delivery)
         {
-            var order = GetOrder();
+            var order = await GetOrderAsync();
             order.Delivery = delivery;
-            orderRepository.Update(order);
+            await orderRepository.UpdateAsync(order);
 
-            return Map(order);
-        }
+            return await MapAsync(order);
+        }        
 
-        public OrderModel SetPayment(OrderPayment payment)
+        public async Task<OrderModel> SetPaymentAsync(OrderPayment payment)
         {
-            var order = GetOrder();
+            var order = await GetOrderAsync();
             order.Payment = payment;
-            orderRepository.Update(order);
+            await orderRepository.UpdateAsync(order);
             Session.RemoveCart();
 
-            notificationService.StartProcess(order);
+            await notificationService.StartProcessAsync(order);
 
-            return Map(order);
+            return await MapAsync(order);
         }
     }
 }

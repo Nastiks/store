@@ -12,9 +12,9 @@ namespace Store.Web.Controllers
             this.jewelryService = jewelryService;
         }
 
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
-            var model = jewelryService.GetById(id);
+            var model = await jewelryService.GetByIdAsync(id);
 
             return View(model);
         }
