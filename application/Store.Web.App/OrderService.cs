@@ -25,7 +25,7 @@ namespace Store.Web.App
         }
 
         public bool TryGetModel(out OrderModel model)
-        {
+        {            
             if (TryGetOrder(out Order order))
             {
                 model = Map(order);
