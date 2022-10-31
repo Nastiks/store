@@ -1,0 +1,107 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Pages\**" />
+		<Content Remove="Pages\**" />
+		<EmbeddedResource Remove="Pages\**" />
+		<None Remove="Pages\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\application\Store.Web.App\Store.Web.App.csproj" />
+		<ProjectReference Include="..\..\domain\Store\Store.csproj" />
+		<ProjectReference Include="..\..\infrastructure\Store.Data.EF\Store.Data.EF.csproj" />
+		<ProjectReference Include="..\..\plugins\Store.YandexKassa\Store.YandexKassa.csproj" />
+		<ProjectReference Include="..\Store.Web.Contractors\Store.Web.Contractors.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Abp.Web.Common" Version="7.3.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Core" Version="6.0.10" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+		<PackageReference Include="Stripe.net" Version="40.12.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\sqlcese40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\sqlceqp40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\sqlceme40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\sqlceer40EN.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\sqlcecompact40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\sqlceca40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\Microsoft.VC90.CRT\msvcr90.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x86\native\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\sqlcese40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\sqlceqp40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\sqlceme40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\sqlceer40EN.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\sqlcecompact40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\sqlceca40.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\Microsoft.VC90.CRT\msvcr90.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="C:\Users\polum\.nuget\packages\umbraco.sqlserverce\4.0.0.1\build\..\runtimes\win-x64\native\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
+	</ItemGroup>
+
+</Project>

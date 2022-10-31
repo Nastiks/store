@@ -4,7 +4,7 @@
     {
         public string UniqueCode { get; }
 
-        public string Description { get; }
+        public string? Description { get; }
 
         public IReadOnlyDictionary<string, string> Parameters { get; }
 

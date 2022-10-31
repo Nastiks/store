@@ -8,7 +8,7 @@ namespace Store
 
         public int Id => dto.Id;
 
-        public string CellPhone
+        public string? CellPhone
         {
             get => dto.CellPhone;
             set

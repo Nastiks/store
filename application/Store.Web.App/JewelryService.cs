@@ -1,4 +1,8 @@
-﻿namespace Store.Web.App
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Store.Web.App
 {
     public class JewelryService
     {
@@ -7,7 +11,7 @@
         public JewelryService(IJewelryRepository jewelryRepository)
         {
             this.jewelryRepository = jewelryRepository;
-        }        
+        }
 
         public async Task<JewelryModel> GetByIdAsync(int id)
         {
@@ -35,7 +39,7 @@
                 Title = jewelry.Title,
                 Material = jewelry.Material,
                 Description = jewelry.Description,
-                Price = jewelry.Price,                
+                Price = jewelry.Price,
             };
         }
     }

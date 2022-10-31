@@ -9,11 +9,11 @@ namespace Store.Data.EF
 {
     public class StoreDbContext : DbContext
     {
-        public DbSet<JewelryDto> Jewelries { get; set; }
+        public DbSet<JewelryDto> Jewelries => Set<JewelryDto>();
 
-        public DbSet<OrderDto> Orders { get; set; }
+        public DbSet<OrderDto> Orders => Set<OrderDto>();
 
-        public DbSet<OrderItemDto> OrderItems { get; set; }
+        public DbSet<OrderItemDto> OrderItems => Set<OrderItemDto>();
 
         public StoreDbContext(DbContextOptions<StoreDbContext> options)
             : base(options)

@@ -1,9 +1,14 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Store.Contractors;
 using Store.Data.EF;
 using Store.Messages;
 using Store.Web.App;
 using Store.Web.Contractors;
 using Store.YandexKassa;
+using System;
 
 namespace Store.Web
 {
@@ -39,9 +44,8 @@ namespace Store.Web
             builder.Services.AddSingleton<OrderService>();
 
             var app = builder.Build();
-
-            //if (app.Environment.IsDevelopment())
-            if (false)
+            
+            if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

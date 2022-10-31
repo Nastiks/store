@@ -69,17 +69,17 @@ namespace Store.Data.EF.Migrations
                 table: "Jewelries",
 
                 columns: new[] { "Id", "Material", "Description", "VendorCode", "Price", "Title" },
-                values: new object[] { 1,"Epoxy resin and peonis", "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside", "VENDORCODE0000000001", 2000m, "Earrings with peonies"});
+                values: new object[] { 1, "Epoxy resin and peonis", "Earrings made of jewelry resin with hypoallergenic accessories and pink peonies inside", "VENDORCODE0000000001", 2000m, "Earrings with peonies" });
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
                 columns: new[] { "Id", "Material", "Description", "VendorCode", "Price", "Title" },
-                values: new object[] { 2, "Epoxy resin and rose", "Pendant made of jewelry resin in the form of a drop with a red rose inside", "VENDORCODE0000000002", 1200m, "Rose pendant"});
+                values: new object[] { 2, "Epoxy resin and rose", "Pendant made of jewelry resin in the form of a drop with a red rose inside", "VENDORCODE0000000002", 1200m, "Rose pendant" });
 
             migrationBuilder.InsertData(
                 table: "Jewelries",
                 columns: new[] { "Id", "Material", "Description", "VendorCode", "Price", "Title" },
-                values: new object[] { 3,"Pearl", "A necklace made of natural pearls that will adorn any woman", "VENDORCODE0000000003", 3000m, "Pearl Necklace"});
+                values: new object[] { 3, "Pearl", "A necklace made of natural pearls that will adorn any woman", "VENDORCODE0000000003", 3000m, "Pearl Necklace" });
 
 
             migrationBuilder.CreateIndex(
